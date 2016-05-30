@@ -37,32 +37,30 @@ const queue: Array<QueueEntry> = [
 interface HistoryProps {
     history: HistoryModule.HistoryQueries
 }
-export class Main extends React.Component<HistoryProps, {}> {
-    render() {
-        return (
-            h('div.hello',
-                h('h1', 'Main Page'),
-                h('h2', 'Test content'),
-                h(ReactRouter.Link, { to: '/test' }, 'main')
+const Main = function (props: HistoryProps) {
+    return (
+        h('div.hello',
+            h('h1', 'Main Page'),
+            h('h2', 'Test content'),
+            h(ReactRouter.Link, { to: '/test' }, 'main')
+        )
+    )
+}
+
+const Test = function (props: HistoryProps) {
+    return (
+        h('div.hello',
+            h('h1', 'Test Page'),
+            h('h2', 'Test content'),
+            h('ul',
+                h('li', h(ReactRouter.Link, { to: '/' }, 'main')),
+                h('li', h(ReactRouter.Link, { to: 'b' }, 'b')),
+                h('li', h(ReactRouter.Link, { to: 'test/a/b/c' }, 'deeper page'))
             )
         )
-    }
+    )
 }
-export class Test extends React.Component<HistoryProps, {}> {
-    render() {
-        return (
-            h('div.hello',
-                h('h1', 'Test Page'),
-                h('h2', 'Test content'),
-                h('ul',
-                    h('li', h(ReactRouter.Link, { to: '/' }, 'main')),
-                    h('li', h(ReactRouter.Link, { to: 'b' }, 'b')),
-                    h('li', h(ReactRouter.Link, { to: 'test/a/b/c'}, 'deeper page'))
-                )
-            )
-        )
-    }
-}
+
 ReactDOM.render(
     h('div',
         h(ReactRouter.Router, { history: ReactRouter.browserHistory },

@@ -1,6 +1,6 @@
 'use strict'
 
-import {Component, ReactDOM} from 'react'
+import * as React from 'react'
 
 //const h = require('react-markup')
 import {h} from 'react-markup'
@@ -15,7 +15,7 @@ export interface EntryState {
     checked: boolean
 }
 
-export class Entry extends Component<EntryProps, EntryState> {
+export class Entry extends React.Component<EntryProps, EntryState> {
     state: EntryState = {
         checked: false
     }
@@ -31,7 +31,7 @@ export class Entry extends Component<EntryProps, EntryState> {
     }
 
     rawMarkup() {
-        var rawMarkup = this.props.children.toString()
+        var rawMarkup = (this.props.children || '').toString()
         return { __html: rawMarkup }
     }
 

@@ -1,7 +1,7 @@
 'use strict'
 
 import * as React from 'react'
-import {Store} from './store'
+import {Store, Action, ActionType} from './store'
 
 //const h = require('react-markup')
 import {h} from 'react-markup'
@@ -25,7 +25,7 @@ export class Entry extends React.Component<EntryProps, EntryState> {
     handleCheckChange = (event) => {
         this.setState({ checked: event.target.checked })
         this.props.onCheckChange(this.props.id)
-        Store.dispatch({type: 0, id: this.props.id, selected: event.target.checked})
+        Store.dispatch({type: ActionType.SELECT, params: {id: this.props.id, selected: event.target.checked}})
     }
 
     constructor(props) {

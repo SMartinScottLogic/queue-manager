@@ -24,33 +24,41 @@ interface State {
     queue: Array<QueueEntry>
 }
 
-function QueueReducer(state: State = {queue:[]}, action) {
-    switch(action.type) {
-        case 0:
-        return Object.assign( {}, state, {queue: state.queue.map( (q) => Object.assign({}, q, {selected:q.id===action.id?action.selected:q.selected}))} )
+export enum ActionType {
+    SELECT
+}
+export interface Action {
+    type: ActionType,
+    params: any
+}
+
+function QueueReducer(state: State = { queue: [] }, action: Action) {
+    switch (action.type) {
+        case ActionType.SELECT:
+            return Object.assign({}, state, { queue: state.queue.map((q) => Object.assign({}, q, { selected: q.id === action.params.id ? action.params.selected : q.selected })) })
         default:
-        return state
+            return state
     }
 }
 
 class StateStore {
     private _store: Redux.Store
     constructor() {
-        this._store = createStore(QueueReducer, {queue})
+        this._store = createStore(QueueReducer, { queue }, (<any>window).devToolsExtension && (<any>window).devToolsExtension())
     }
-    
+
     get queue(): Array<QueueEntry> {
         return this.getState().queue;
     }
-    
-    public dispatch(action: any) {
+
+    public dispatch(action: Action) {
         return this._store.dispatch(action);
     }
-    
+
     public subscribe(listener: Function) {
         return this._store.subscribe(listener)
     }
-    
+
     private getState(): State {
         return this._store.getState()
     }

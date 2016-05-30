@@ -7,32 +7,13 @@ import * as ReactDOM from 'react-dom'
 //const h = require('react-hyperscript')
 import {h} from 'react-markup'
 
+import {Store} from './store'
 import {Entry} from './queue_entry'
 
 function handleCheckChange(id) {
     console.log('change', id);
     ReactRouter.browserHistory.push(`/test/${id}`)
 }
-
-interface QueueEntry {
-    id: number,
-    selected?: boolean,
-    text: string
-}
-const queue: Array<QueueEntry> = [
-    { id: 1, selected: true, text: 'Literal html' }
-    , { id: 2, selected: true, text: 'Literal html' }
-    , { id: 3, selected: true, text: 'Literal html' }
-    , { id: 4, selected: true, text: 'Literal html' }
-    , { id: 5, selected: true, text: 'Literal html' }
-    , { id: 6, selected: true, text: 'Literal html' }
-    , { id: 7, selected: true, text: 'Literal html' }
-    , { id: 8, selected: true, text: 'Literal html' }
-    , { id: 9, selected: true, text: 'Literal html' }
-    , { id: 10, text: 'Hello' }
-    , { id: 11, text: 'Hi' }
-    , { id: 12, text: 'Bob' }
-]
 
 const Main = () =>
     h('div.hello',
@@ -52,21 +33,37 @@ const Test = () =>
         )
     )
 
+class QueueList extends React.Component<{}, {}> {
+    constructor(props) {
+        super(props)
+        Store.subscribe(() => {
+            console.log(Store.queue)
+        })
+    }
+
+    render() {
+        return (
+            h('div', Store.queue.map((entry) => h(Entry,
+                {
+                    key: entry.id,
+                    id: entry.id,
+                    selected: entry.selected || false,
+                    onCheckChange: (id) => handleCheckChange(id),
+                    text: `${entry.text}`
+                }
+            ))
+            )
+        )
+    }
+}
+
 ReactDOM.render(
     h('div',
         h(ReactRouter.Router, { history: ReactRouter.browserHistory },
             h(ReactRouter.Route, { path: '/', component: Main }),
             h(ReactRouter.Route, { path: '/test', component: Test })
         )
-        , queue.map((entry) => {
-            return h(Entry,
-                {
-                    key: entry.id,
-                    id: entry.id,
-                    selected: entry.selected || false,
-                    onCheckChange: (id) => handleCheckChange(id)
-                }, `${entry.text}`)
-        })
+        , h(QueueList)
     ),
     document.getElementById('content')
 );

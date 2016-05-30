@@ -1,6 +1,7 @@
 'use strict'
 
 import * as React from 'react'
+import {Store} from './store'
 
 //const h = require('react-markup')
 import {h} from 'react-markup'
@@ -8,7 +9,8 @@ import {h} from 'react-markup'
 export interface EntryProps {
     id: number,
     selected?: boolean,
-    onCheckChange: Function
+    onCheckChange: Function,
+    text?: string
 }
 
 export interface EntryState {
@@ -23,6 +25,7 @@ export class Entry extends React.Component<EntryProps, EntryState> {
     handleCheckChange = (event) => {
         this.setState({ checked: event.target.checked })
         this.props.onCheckChange(this.props.id)
+        Store.dispatch({type: 0, id: this.props.id, selected: event.target.checked})
     }
 
     constructor(props) {
@@ -31,7 +34,7 @@ export class Entry extends React.Component<EntryProps, EntryState> {
     }
 
     rawMarkup() {
-        var rawMarkup = (this.props.children || '').toString()
+        var rawMarkup = (this.props.text || '').toString()
         return { __html: rawMarkup }
     }
 

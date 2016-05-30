@@ -34,32 +34,23 @@ const queue: Array<QueueEntry> = [
     , { id: 12, text: 'Bob' }
 ]
 
-interface HistoryProps {
-    history: HistoryModule.HistoryQueries
-}
-const Main = function (props: HistoryProps) {
-    return (
-        h('div.hello',
-            h('h1', 'Main Page'),
-            h('h2', 'Test content'),
-            h(ReactRouter.Link, { to: '/test' }, 'main')
-        )
+const Main = () =>
+    h('div.hello',
+        h('h1', 'Main Page'),
+        h('h2', 'Test content'),
+        h(ReactRouter.Link, { to: '/test' }, 'main')
     )
-}
 
-const Test = function (props: HistoryProps) {
-    return (
-        h('div.hello',
-            h('h1', 'Test Page'),
-            h('h2', 'Test content'),
-            h('ul',
-                h('li', h(ReactRouter.Link, { to: '/' }, 'main')),
-                h('li', h(ReactRouter.Link, { to: 'b' }, 'b')),
-                h('li', h(ReactRouter.Link, { to: 'test/a/b/c' }, 'deeper page'))
-            )
+const Test = () =>
+    h('div.hello',
+        h('h1', 'Test Page'),
+        h('h2', 'Test content'),
+        h('ul',
+            h('li', h(ReactRouter.Link, { to: '/' }, 'main')),
+            h('li', h(ReactRouter.Link, { to: 'b' }, 'b')),
+            h('li', h(ReactRouter.Link, { to: 'test/a/b/c' }, 'deeper page'))
         )
     )
-}
 
 ReactDOM.render(
     h('div',

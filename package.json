@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "npm install && bower install",
+    "prebuild": "npm install",
     "build": "echo \"Error: build not configured\" && exit 1",
+    "server": "node server/main.js",
+    "lint": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,7 +30,9 @@
     "babel-runtime": "^6.9.2",
     "body-parser": "^1.15.1",
     "debug": "^2.2.0",
+    "eslint": "^2.11.1",
     "express": "^4.13.4",
+    "immutable": "^3.8.1",
     "react": "^15.1.0",
     "react-hyperscript": "^2.4.0",
     "react-markup": "^1.0.3",

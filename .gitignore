@@ -37,3 +37,5 @@ typings
 # Post-build files
 app/dist
 app/bundle.js
+app2/dist
+app2/bundle.js

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { QueueList as components_QueueList } from './queue_list'
 import { addTodo, toggleTodo } from './actions'
 
-export function QueueList(T) {
+export function QueueList(T: any) {
     return connect(
         function mapStateToProps(state) {
             return { todos: state }

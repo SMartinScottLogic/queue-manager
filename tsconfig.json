@@ -1,6 +1,9 @@
 {
     "compilerOptions": {
-        "target": "es2015"
+        "target": "es2015",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitUseStrict": true
     },
     "exclude": [
         "node_modules"

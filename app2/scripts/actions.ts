@@ -1,4 +1,4 @@
-const uid = ():string => Math.random().toString(34).slice(2)
+const uid = (): string => Math.random().toString(34).slice(2)
 
 type TogglePayload = string;
 interface TodoPayload {
@@ -10,7 +10,7 @@ export interface Action {
     type: string,
     payload: TogglePayload | TodoPayload
 }
-export function addTodo(text:string): Action {
+export function addTodo(text: string): Action {
     return {
         type: 'ADD_TODO',
         payload: {

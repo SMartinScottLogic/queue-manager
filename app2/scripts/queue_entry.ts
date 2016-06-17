@@ -2,8 +2,14 @@
 
 import {h} from 'react-markup'
 
-export function QueueEntry(props) {
-  const { todo } = props;
+interface QueueEntryProp {
+  todo: {
+    isDone: boolean,
+    text: string
+  }
+}
+export function QueueEntry(props: QueueEntryProp) {
+  const { todo } = props
 
   if (todo.isDone) {
     return h('strike', todo.text)
@@ -12,11 +18,11 @@ export function QueueEntry(props) {
   }
 }
 
-function rawMarkup(text) {
+function rawMarkup(text: string) {
   return { __html: (text || '').toString()}
 }
-export function QueueEntry2(props) {
-  const { todo } = props;
+export function QueueEntry2(props: QueueEntryProp) {
+  const { todo } = props
 
   if (todo.isDone) {
     return h('strike', h('span', { dangerouslySetInnerHTML: rawMarkup(todo.text) }), 'strike')

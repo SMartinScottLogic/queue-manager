@@ -27,3 +27,10 @@ export function toggleTodo(id: string): Action {
         payload: id
     }
 }
+
+export function deleteTodo(id: string): Action {
+    return {
+        type: 'DELETE_TODO',
+        payload: id
+    }
+}

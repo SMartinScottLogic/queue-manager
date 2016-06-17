@@ -22,7 +22,7 @@ export class Entry extends React.Component<EntryProps, EntryState> {
         checked: false
     }
 
-    handleCheckChange = (event: Event) => {
+    handleCheckChange = (event: Event & any) => {
         const id = this.props.id
         const checked = event.target.checked
         this.setState({ checked })

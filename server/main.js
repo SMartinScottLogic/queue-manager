@@ -29,7 +29,7 @@ app.get('/api/queue', function (req, res) {
 
 app.listen(app.get('port'), function () {
     console.log('Server started: http://localhost:' + app.get('port') + '/')
-});
+})
 
 app.use('/', express.static(path.join(__dirname, '../app2')))
 app.all('/*', function (req, res) {

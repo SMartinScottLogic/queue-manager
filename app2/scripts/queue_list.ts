@@ -5,7 +5,7 @@ const Hammer = require('react-hammerjs')
 
 export function QueueList(T: any) {
     return function QueueList(props) {
-        const { todos, toggleTodo, addTodo } = props;
+        const { todos, toggleTodo, addTodo } = props
 
         const onSubmit = (event: Event) => {
             console.log(event)

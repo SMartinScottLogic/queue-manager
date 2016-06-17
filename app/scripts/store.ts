@@ -2,19 +2,19 @@ import {createStore} from 'redux'
 
 interface QueueEntry {
     id: number,
-    selected?: boolean,
+    checked?: boolean,
     text: string
 }
 const queue: Array<QueueEntry> = [
-    { id: 1, selected: true, text: 'Literal html' }
-    , { id: 2, selected: true, text: 'Literal html' }
-    , { id: 3, selected: true, text: 'Literal html' }
-    , { id: 4, selected: true, text: 'Literal html' }
-    , { id: 5, selected: true, text: 'Literal html' }
-    , { id: 6, selected: true, text: 'Literal html' }
-    , { id: 7, selected: true, text: 'Literal html' }
-    , { id: 8, selected: true, text: 'Literal html' }
-    , { id: 9, selected: true, text: 'Literal html' }
+    { id: 1, checked: true, text: 'Literal html' }
+    , { id: 2, checked: true, text: 'Literal html' }
+    , { id: 3, checked: true, text: 'Literal html' }
+    , { id: 4, checked: true, text: 'Literal html' }
+    , { id: 5, checked: true, text: 'Literal html' }
+    , { id: 6, checked: true, text: 'Literal html' }
+    , { id: 7, checked: true, text: 'Literal html' }
+    , { id: 8, checked: true, text: 'Literal html' }
+    , { id: 9, checked: true, text: 'Literal html' }
     , { id: 10, text: 'Hello' }
     , { id: 11, text: 'Hi' }
     , { id: 12, text: 'Bob' }
@@ -35,7 +35,7 @@ export interface Action {
 function QueueReducer(state: State = { queue: [] }, action: Action) {
     switch (action.type) {
         case ActionType.SELECT:
-            return Object.assign({}, state, { queue: state.queue.map((q) => Object.assign({}, q, { selected: q.id === action.params.id ? action.params.selected : q.selected })) })
+            return Object.assign({}, state, { queue: state.queue.map((q) => Object.assign({}, q, { checked: q.id === action.params.id ? action.params.checked : q.checked })) })
         default:
             return state
     }
@@ -48,11 +48,11 @@ class StateStore {
     }
 
     get queue(): Array<QueueEntry> {
-        return this.getState().queue;
+        return this.getState().queue
     }
 
     public dispatch(action: Action) {
-        return this._store.dispatch(action);
+        return this._store.dispatch(action)
     }
 
     public subscribe(listener: Function) {

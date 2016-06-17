@@ -4,14 +4,14 @@ import * as React from 'react'
 import * as ReactRouter from 'react-router'
 import * as ReactDOM from 'react-dom'
 
-//const h = require('react-hyperscript')
+// const h = require('react-hyperscript')
 import {h} from 'react-markup'
 
 import {Store} from './store'
 import {Entry} from './queue_entry'
 
-function handleCheckChange(id) {
-    console.log('change', id);
+function handleCheckChange(id: number) {
+    console.log('change', id)
     ReactRouter.browserHistory.push(`/test/${id}`)
 }
 
@@ -34,7 +34,7 @@ const Test = () =>
     )
 
 class QueueList extends React.Component<{}, {}> {
-    constructor(props) {
+    constructor(props: any) {
         super(props)
         Store.subscribe(() => {
             console.log(Store.queue)
@@ -47,8 +47,8 @@ class QueueList extends React.Component<{}, {}> {
                 {
                     key: entry.id,
                     id: entry.id,
-                    selected: entry.selected || false,
-                    onCheckChange: (id) => handleCheckChange(id),
+                    checked: entry.checked || false,
+                    onCheckChange: (id: number) => handleCheckChange(id),
                     text: `${entry.text}`
                 }
             ))
@@ -66,4 +66,4 @@ ReactDOM.render(
         , h(QueueList)
     ),
     document.getElementById('content')
-);
+)

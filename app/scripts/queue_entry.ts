@@ -3,12 +3,12 @@
 import * as React from 'react'
 import {Store, Action, ActionType} from './store'
 
-//const h = require('react-markup')
+// const h = require('react-markup')
 import {h} from 'react-markup'
 
 export interface EntryProps {
     id: number,
-    selected?: boolean,
+    checked?: boolean,
     onCheckChange: Function,
     text?: string
 }
@@ -22,26 +22,28 @@ export class Entry extends React.Component<EntryProps, EntryState> {
         checked: false
     }
 
-    handleCheckChange = (event) => {
-        this.setState({ checked: event.target.checked })
-        this.props.onCheckChange(this.props.id)
-        Store.dispatch({type: ActionType.SELECT, params: {id: this.props.id, selected: event.target.checked}})
+    handleCheckChange = (event: Event) => {
+        const id = this.props.id
+        const checked = event.target.checked
+        this.setState({ checked })
+        this.props.onCheckChange(id)
+        Store.dispatch({type: ActionType.SELECT, params: {id, checked}})
     }
 
-    constructor(props) {
-        super(props);
-        this.state.checked = this.props.selected || false
+    constructor(props: EntryProps) {
+        super(props)
+        this.state.checked = this.props.checked || false
     }
 
     rawMarkup() {
-        var rawMarkup = (this.props.text || '').toString()
+        const rawMarkup = (this.props.text || '').toString()
         return { __html: rawMarkup }
     }
 
     render() {
         return (
             h('div.todo',
-                h('input', { type: "checkbox", value: this.props.id, checked: this.state.checked, onChange: this.handleCheckChange }),
+                h('input', { type: 'checkbox', value: this.props.id, checked: this.state.checked, onChange: this.handleCheckChange }),
                 h('span', {dangerouslySetInnerHTML: this.rawMarkup() } )
             )
         )

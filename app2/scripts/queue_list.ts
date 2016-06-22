@@ -5,8 +5,8 @@ const Hammer = require('react-hammerjs')
 import { List, Map } from 'immutable'
 
 export function QueueList(T: any) {
-    return function QueueList(props: {todos: Map<{}, {}>, toggleTodo: Function, deleteTodo: Function, addTodo: Function}) {
-        const { todos, toggleTodo, deleteTodo, addTodo }: {todos: Map<{}, {}>, toggleTodo: Function, deleteTodo: Function, addTodo: Function} = props
+    return function QueueList(props: { todos: Map<{}, {}>, toggleTodo: Function, deleteTodo: Function, addTodo: Function, setMode: Function }) {
+        const { todos, toggleTodo, deleteTodo, addTodo, setMode }: { todos: Map<{}, {}>, toggleTodo: Function, deleteTodo: Function, addTodo: Function, setMode: Function } = props
 
         const onSubmit = (event: Event & any) => {
             console.log(event)
@@ -26,12 +26,22 @@ export function QueueList(T: any) {
             console.log('tap', id, event)
             toggleTodo(id)
         }
+        /*
         const handleSwipe = (id: number) => (event: any) => {
             console.log('swipe', id, event)
             deleteTodo(id)
         }
+        */
         const handlePan = (id: number) => (event: any) => {
             console.log('pan', id, event)
+
+            let mode = 0
+            let pos = event.deltaX
+            if (event.type === 'panend') {
+                pos = 0
+                mode = 1
+            }
+            setMode(id, mode, pos)
         }
 
         return h('div.todo',
@@ -40,10 +50,12 @@ export function QueueList(T: any) {
                 const todo = t.toJS()
                 console.log('todo', todo)
 
-                return h(Hammer, { key: todo.id, onTap: handleTap(todo.id), onSwipe: handleSwipe(todo.id), onPan: handlePan(todo.id), onPanEnd: handlePan(todo.id) },
-                    h('li.todo__item',
+                return h(Hammer, { key: todo.id, onTap: handleTap(todo.id), /*onSwipe: handleSwipe(todo.id), */onPan: handlePan(todo.id), onPanEnd: handlePan(todo.id) },
+                    h('li.todo__item', { style: { background: todo.mode === 0 ? 'red' : 'transparent' } },
                         // { key: todo.id/*, onClick: toggleClick(todo.id)*/ },
-                        h(T, { todo })
+                        h('span', {style: { display: 'inline-block', transition: 'all .3s', WebkitTransition: 'all .3s', transform: `translate3d(${todo.pos}px, 0, 0)`}},
+                            h(T, { todo })
+                        )
                     )
                 )
             }

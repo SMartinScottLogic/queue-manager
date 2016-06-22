@@ -23,7 +23,7 @@ function handleSwipe() {
     console.log('swipe', arguments)
 }
 function handlePan(event: any) {
-    console.log('pan', arguments)
+    console.log('pan2', arguments)
 
     let pos = event.deltaX
     if (event.type === 'panend') {
@@ -35,9 +35,10 @@ function handlePan(event: any) {
 }
 render(
     h(Provider, { store },
-        h('div', h(QueueList(QueueEntry2)),
+        h('div',
+            h(QueueList(QueueEntry2)),
             h(Hammer, { onTap: handleTap, onSwipe: handleSwipe, onPan: handlePan, onPanEnd: handlePan },
-                h('span', { style: { display: 'inline-block', transition: 'all .3s', '-webkit-transition': 'all .3s' } }, 'Tap Me')
+                h('span', { style: { display: 'inline-block', transition: 'all .3s', WebkitTransition: 'all .3s' } }, 'Tap Me')
             )
         )
     ),

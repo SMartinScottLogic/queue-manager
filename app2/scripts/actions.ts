@@ -1,22 +1,31 @@
 const uid = (): string => Math.random().toString(34).slice(2)
 
-type TogglePayload = string;
-interface TodoPayload {
+export interface TogglePayload {
+    id: string
+}
+export interface TodoPayload {
     id: string,
     isDone: boolean,
-    text: string
-}
+    text: string,
+    pos: number
+};
+export interface ModePayload {
+    id: string,
+    mode: number,
+    pos: number
+};
 export interface Action {
     type: string,
-    payload: TogglePayload | TodoPayload
-}
+    payload: TogglePayload | TodoPayload | ModePayload
+};
 export function addTodo(text: string): Action {
     return {
         type: 'ADD_TODO',
         payload: {
+            text,
             id: uid(),
             isDone: false,
-            text
+            pos: 0
         }
     }
 }
@@ -24,13 +33,20 @@ export function addTodo(text: string): Action {
 export function toggleTodo(id: string): Action {
     return {
         type: 'TOGGLE_TODO',
-        payload: id
+        payload: {id}
     }
 }
 
 export function deleteTodo(id: string): Action {
     return {
         type: 'DELETE_TODO',
-        payload: id
+        payload: {id}
+    }
+}
+
+export function setMode(id: string, mode: number, pos: number): Action {
+    return {
+        type: 'SET_MODE',
+        payload: { id, mode, pos }
     }
 }

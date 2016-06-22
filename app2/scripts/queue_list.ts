@@ -30,6 +30,9 @@ export function QueueList(T: any) {
             console.log('swipe', id, event)
             deleteTodo(id)
         }
+        const handlePan = (id: number) => (event: any) => {
+            console.log('pan', id, event)
+        }
 
         return h('div.todo',
             h('input', { type: 'text', placeholder: 'Add todo', onKeyDown: onSubmit }),
@@ -37,7 +40,7 @@ export function QueueList(T: any) {
                 const todo = t.toJS()
                 console.log('todo', todo)
 
-                return h(Hammer, { key: todo.id, onTap: handleTap(todo.id), onSwipe: handleSwipe(todo.id) },
+                return h(Hammer, { key: todo.id, onTap: handleTap(todo.id), onSwipe: handleSwipe(todo.id), onPan: handlePan(todo.id), onPanEnd: handlePan(todo.id) },
                     h('li.todo__item',
                         // { key: todo.id/*, onClick: toggleClick(todo.id)*/ },
                         h(T, { todo })

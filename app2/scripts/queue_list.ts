@@ -53,7 +53,7 @@ export function QueueList(T: any) {
                 return h(Hammer, { key: todo.id, onTap: handleTap(todo.id), /*onSwipe: handleSwipe(todo.id), */onPan: handlePan(todo.id), onPanEnd: handlePan(todo.id) },
                     h('li.todo__item', { style: { background: todo.mode === 0 ? 'red' : 'transparent' } },
                         // { key: todo.id/*, onClick: toggleClick(todo.id)*/ },
-                        h('span', {style: { display: 'inline-block', transition: 'all .3s', WebkitTransition: 'all .3s', transform: `translate3d(${todo.pos}px, 0, 0)`}},
+                        h('span.card', {style: { transform: `translate3d(${todo.pos}px, 0, 0)`}},
                             h(T, { todo })
                         )
                     )

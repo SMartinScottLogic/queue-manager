@@ -1,0 +1,26 @@
+.card {
+    width: 250px;
+    height: 350px;
+    background-color: whitesmoke;
+    border: black;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    display: inline-block;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    padding: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-indent: 0;
+}
+
+.todo__item {
+    list-style-type: none;
+    margin-bottom: 10px;
+    text-indent: 50px;
+}
+
+.todo__list {
+    -webkit-padding-start: 0;
+}
